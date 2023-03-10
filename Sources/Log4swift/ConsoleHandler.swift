@@ -69,7 +69,7 @@ public struct ConsoleHandler: LogHandler {
         // self.log(level: level, message: message, metadata: metadata, file: file, function: function, line: line)
     }
 
-    init(label: String) {
+    public init(label: String) {
         self.label = label
     }
 }
