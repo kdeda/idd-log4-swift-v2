@@ -11,10 +11,16 @@ import Foundation
 
 internal func currentThreadId() -> UInt64 {
     var threadId: UInt64 = 0
+
+#if os(Linux)
+    threadId = UInt64(pthread_self() as UInt)
+#else
     if (pthread_threadid_np(nil, &threadId) != 0) {
-        threadId = UInt64(pthread_mach_thread_np(pthread_self()));
+        return threadId
     }
-    return threadId
+#endif
+
+    return UInt64(threadId)
 }
 
 public struct ConsoleHandler: LogHandler {
